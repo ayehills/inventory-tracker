@@ -206,7 +206,7 @@ html,body{{background:#08110c}}
   <div class="abs forever">Forever</div>
   <div class="abs inhearts">IN OUR HEARTS</div>
   <div class="abs flourish">{FLOURISH}</div>
-  <div class="abs para">With gratitude to God for a life well spent, the Dimnwaka&rsquo;s Family in Umudimisii, Umuoru Village Uga announce the transition to glory of their husband, father, grand father, brother, uncle, cousin and father&#8209;in&#8209;law.</div>
+  <div class="abs para">With gratitude to God for a life well spent, the Dimnwaka Family in Umudimisii, Umuoru Village Uga announce the transition to glory of their husband, father, grand father, brother, uncle, cousin and father&#8209;in&#8209;law.</div>
 
   <div class="abs late">LATE</div>
   <div class="abs name name-ext">ENGR. ELIS<br/>O. DIM</div>
