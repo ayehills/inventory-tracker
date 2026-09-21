@@ -150,17 +150,17 @@ html,body{{background:#08110c}}
 .flourish{{left:640px;top:246px;width:280px;z-index:9}}
 .para{{left:586px;top:282px;width:468px;text-align:center;z-index:9;font-family:'Gelasio';font-size:23.5px;line-height:1.27;color:#1c1c1c}}
 
-.late{{left:556px;top:528px;width:504px;text-align:center;z-index:9;font-family:'Gelasio';font-weight:700;font-size:26px;letter-spacing:6px;color:#f1d27a;
-  text-shadow:0 0 4px #06261a,0 0 4px #06261a,0 2px 4px rgba(0,0,0,.6)}}
-.late:before,.late:after{{content:'';display:inline-block;width:60px;height:2px;vertical-align:middle;margin:0 14px;background:#f1d27a;box-shadow:0 0 3px #06261a}}
-.name{{left:546px;top:556px;width:514px;text-align:center;z-index:9;font-family:'Playfair Display';font-weight:900;font-size:80px;line-height:.98;
-  background:linear-gradient(180deg,#fff3c4 0%,#f1d27a 38%,#c8952e 62%,#f6dc8e 84%,#b8842a 100%);-webkit-background-clip:text;background-clip:text;
-  -webkit-text-fill-color:transparent}}
-.name-ext{{z-index:8;background:none;-webkit-text-fill-color:#06261a;color:#06261a;
-  text-shadow:1px 1px 0 #06261a,2px 2px 0 #06261a,3px 3px 0 #06261a,4px 4px 0 #06261a,5px 6px 0 #06261a,
-    0 0 10px rgba(0,0,0,.5),0 10px 18px rgba(0,0,0,.55)}}
-.kwochaa{{left:556px;top:714px;width:504px;text-align:center;z-index:9;font-family:'Gelasio';font-weight:700;font-size:30px;letter-spacing:1px;color:#06261a;
-  text-shadow:0 0 10px rgba(255,248,224,.9),0 0 3px rgba(255,248,224,.7),0 2px 4px rgba(0,0,0,.3)}}
+.late{{left:556px;top:528px;width:504px;text-align:center;z-index:9;font-family:'Gelasio';font-weight:700;font-size:26px;letter-spacing:6px;color:#8a1f1f;
+  text-shadow:0 1px 2px rgba(255,248,224,.6)}}
+.late:before,.late:after{{content:'';display:inline-block;width:60px;height:2px;vertical-align:middle;margin:0 14px;background:#8a1f1f}}
+.name{{left:530px;top:558px;width:546px;text-align:center;z-index:9;font-family:'Gelasio';font-weight:700;font-size:82px;line-height:.9;letter-spacing:0;white-space:nowrap;
+  color:#07251a}}
+.name-ext{{z-index:8;color:#f6e2a2;
+  text-shadow:1.4px 0 0 #f6e2a2,-1.4px 0 0 #f6e2a2,0 1.4px 0 #f6e2a2,0 -1.4px 0 #f6e2a2,
+    1px 1px 0 #f6e2a2,-1px 1px 0 #f6e2a2,1px -1px 0 #f6e2a2,-1px -1px 0 #f6e2a2,
+    0 0 8px rgba(255,255,255,.55),0 5px 12px rgba(0,0,0,.42),0 1px 2px rgba(0,0,0,.35)}}
+.kwochaa{{left:556px;top:712px;width:504px;text-align:center;z-index:9;font-family:'Gelasio';font-weight:700;font-size:31px;letter-spacing:.5px;color:#07251a;
+  text-shadow:0 2px 4px rgba(0,0,0,.25)}}
 
 /* seal */
 .seal{{left:800px;top:746px;width:150px;height:150px;z-index:11}}
