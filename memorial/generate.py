@@ -144,11 +144,9 @@ html,body{{background:#08110c}}
 
 /* ---------- top-right text ---------- */
 .forever{{left:540px;top:70px;width:480px;text-align:center;z-index:9;font-family:'Great Vibes';font-size:112px;line-height:1;
-  color:#0a3d2a;-webkit-text-stroke:3px rgba(255,248,224,.95);paint-order:stroke fill;
-  filter:drop-shadow(0 0 6px rgba(255,248,224,.9)) drop-shadow(0 4px 8px rgba(0,0,0,.45))}}
+  color:#07301f;text-shadow:0 0 14px rgba(255,248,224,.85),0 0 4px rgba(255,248,224,.6),0 4px 8px rgba(0,0,0,.4)}}
 .inhearts{{left:540px;top:186px;width:480px;text-align:center;z-index:9;font-family:'Gelasio';font-weight:700;font-size:47px;
-  color:#0a3d2a;-webkit-text-stroke:2.5px rgba(255,248,224,.95);paint-order:stroke fill;
-  filter:drop-shadow(0 0 5px rgba(255,248,224,.9)) drop-shadow(0 3px 6px rgba(0,0,0,.4))}}
+  color:#07301f;text-shadow:0 0 12px rgba(255,248,224,.85),0 0 3px rgba(255,248,224,.6),0 3px 6px rgba(0,0,0,.35)}}
 .flourish{{left:640px;top:246px;width:280px;z-index:9}}
 .para{{left:586px;top:282px;width:468px;text-align:center;z-index:9;font-family:'Gelasio';font-size:23.5px;line-height:1.27;color:#1c1c1c}}
 
@@ -157,10 +155,12 @@ html,body{{background:#08110c}}
 .late:before,.late:after{{content:'';display:inline-block;width:60px;height:2px;vertical-align:middle;margin:0 14px;background:#f1d27a;box-shadow:0 0 3px #06261a}}
 .name{{left:546px;top:556px;width:514px;text-align:center;z-index:9;font-family:'Playfair Display';font-weight:900;font-size:80px;line-height:.98;
   background:linear-gradient(180deg,#fff3c4 0%,#f1d27a 38%,#c8952e 62%,#f6dc8e 84%,#b8842a 100%);-webkit-background-clip:text;background-clip:text;
-  -webkit-text-fill-color:transparent;-webkit-text-stroke:3px #06261a;paint-order:stroke fill;
-  filter:drop-shadow(0 3px 0 #06261a) drop-shadow(0 8px 12px rgba(0,0,0,.6))}}
+  -webkit-text-fill-color:transparent}}
+.name-ext{{z-index:8;background:none;-webkit-text-fill-color:#06261a;color:#06261a;
+  text-shadow:1px 1px 0 #06261a,2px 2px 0 #06261a,3px 3px 0 #06261a,4px 4px 0 #06261a,5px 6px 0 #06261a,
+    0 0 10px rgba(0,0,0,.5),0 10px 18px rgba(0,0,0,.55)}}
 .kwochaa{{left:556px;top:714px;width:504px;text-align:center;z-index:9;font-family:'Gelasio';font-weight:700;font-size:30px;letter-spacing:1px;color:#06261a;
-  -webkit-text-stroke:2px rgba(255,248,224,.9);paint-order:stroke fill;filter:drop-shadow(0 2px 4px rgba(0,0,0,.35))}}
+  text-shadow:0 0 10px rgba(255,248,224,.9),0 0 3px rgba(255,248,224,.7),0 2px 4px rgba(0,0,0,.3)}}
 
 /* seal */
 .seal{{left:800px;top:746px;width:150px;height:150px;z-index:11}}
@@ -209,6 +209,7 @@ html,body{{background:#08110c}}
   <div class="abs para">With gratitude to God for a life well spent, the Dimnwaka&rsquo;s Family in Umudimisii, Umuoru Village Uga announce the transition to glory of their husband, father, grand father, brother, uncle, cousin and father&#8209;in&#8209;law.</div>
 
   <div class="abs late">LATE</div>
+  <div class="abs name name-ext">ENGR. ELIS<br/>O. DIM</div>
   <div class="abs name">ENGR. ELIS<br/>O. DIM</div>
   <div class="abs kwochaa">(KWOCHAA)</div>
 
