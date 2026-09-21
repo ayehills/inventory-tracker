@@ -143,11 +143,11 @@ html,body{{background:#08110c}}
 .scene{{right:18px;top:956px;width:316px;z-index:6;opacity:.97}}
 
 /* ---------- top-right text ---------- */
-.forever{{left:540px;top:70px;width:480px;text-align:center;z-index:9;font-family:'Great Vibes';font-size:112px;line-height:1;
+.forever{{left:580px;top:70px;width:480px;text-align:center;z-index:9;font-family:'Great Vibes';font-size:112px;line-height:1;
   color:#07301f;text-shadow:0 0 14px rgba(255,248,224,.85),0 0 4px rgba(255,248,224,.6),0 4px 8px rgba(0,0,0,.4)}}
-.inhearts{{left:540px;top:188px;width:480px;text-align:center;z-index:9;font-family:'Gelasio';font-weight:700;font-size:44px;letter-spacing:2.5px;
+.inhearts{{left:580px;top:188px;width:480px;text-align:center;z-index:9;font-family:'Gelasio';font-weight:700;font-size:44px;letter-spacing:2.5px;
   color:#07301f;text-shadow:0 0 12px rgba(255,248,224,.85),0 0 3px rgba(255,248,224,.6),0 3px 6px rgba(0,0,0,.35)}}
-.flourish{{left:640px;top:246px;width:280px;z-index:9}}
+.flourish{{left:680px;top:246px;width:280px;z-index:9}}
 .para{{left:586px;top:282px;width:468px;text-align:center;z-index:9;font-family:'Gelasio';font-size:23.5px;line-height:1.27;color:#1c1c1c}}
 
 .late{{left:556px;top:528px;width:504px;text-align:center;z-index:9;font-family:'Gelasio';font-weight:700;font-size:26px;letter-spacing:6px;color:#8a1f1f;
