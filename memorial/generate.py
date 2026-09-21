@@ -145,7 +145,7 @@ html,body{{background:#08110c}}
 /* ---------- top-right text ---------- */
 .forever{{left:540px;top:70px;width:480px;text-align:center;z-index:9;font-family:'Great Vibes';font-size:112px;line-height:1;
   color:#07301f;text-shadow:0 0 14px rgba(255,248,224,.85),0 0 4px rgba(255,248,224,.6),0 4px 8px rgba(0,0,0,.4)}}
-.inhearts{{left:540px;top:186px;width:480px;text-align:center;z-index:9;font-family:'Gelasio';font-weight:700;font-size:47px;
+.inhearts{{left:540px;top:188px;width:480px;text-align:center;z-index:9;font-family:'Gelasio';font-weight:700;font-size:44px;letter-spacing:2.5px;
   color:#07301f;text-shadow:0 0 12px rgba(255,248,224,.85),0 0 3px rgba(255,248,224,.6),0 3px 6px rgba(0,0,0,.35)}}
 .flourish{{left:640px;top:246px;width:280px;z-index:9}}
 .para{{left:586px;top:282px;width:468px;text-align:center;z-index:9;font-family:'Gelasio';font-size:23.5px;line-height:1.27;color:#1c1c1c}}
@@ -204,7 +204,7 @@ html,body{{background:#08110c}}
   <img class="abs scene" src="{img('cross_scene')}"/>
 
   <div class="abs forever">Forever</div>
-  <div class="abs inhearts">in our Hearts</div>
+  <div class="abs inhearts">IN OUR HEARTS</div>
   <div class="abs flourish">{FLOURISH}</div>
   <div class="abs para">With gratitude to God for a life well spent, the Dimnwaka&rsquo;s Family in Umudimisii, Umuoru Village Uga announce the transition to glory of their husband, father, grand father, brother, uncle, cousin and father&#8209;in&#8209;law.</div>
 
