@@ -3,3 +3,5 @@ __pycache__/
 *.pyc
 memorial/build/
 larry/build/
+headshot/build/
+headshot/models/
