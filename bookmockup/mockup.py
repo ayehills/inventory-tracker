@@ -175,13 +175,14 @@ def mat_cover():
     Lk.new(tex.outputs['Color'], bsdf.inputs['Base Color'])
     mk = N.new('ShaderNodeTexImage'); mk.image = bpy.data.images.load(P('build', 'goldmask.png'))
     mk.image.colorspace_settings.name = 'Non-Color'
-    # satin laminate overall, spot gloss on the gold type
-    r = N.new('ShaderNodeMapRange'); r.inputs['To Min'].default_value = 0.62; r.inputs['To Max'].default_value = 0.30
-    Lk.new(mk.outputs['Color'], r.inputs['Value']); Lk.new(r.outputs['Result'], bsdf.inputs['Roughness'])
-    cw = N.new('ShaderNodeMapRange'); cw.inputs['To Min'].default_value = 0.04; cw.inputs['To Max'].default_value = 0.40
-    Lk.new(mk.outputs['Color'], cw.inputs['Value']); Lk.new(cw.outputs['Result'], bsdf.inputs['Coat Weight'])
+    # soft-touch matte laminate overall (keeps the blacks deep), spot gloss on the gold type
+    def by_mask(lo, hi, sock):
+        mr = N.new('ShaderNodeMapRange'); mr.inputs['To Min'].default_value = lo; mr.inputs['To Max'].default_value = hi
+        Lk.new(mk.outputs['Color'], mr.inputs['Value']); Lk.new(mr.outputs['Result'], bsdf.inputs[sock])
+    by_mask(0.74, 0.42, 'Roughness')
+    by_mask(0.10, 0.30, 'Specular IOR Level')
+    by_mask(0.00, 0.12, 'Coat Weight')
     bsdf.inputs['Coat Roughness'].default_value = 0.18
-    bsdf.inputs['Specular IOR Level'].default_value = 0.30
     # micro paper / laminate grain
     tc = N.new('ShaderNodeTexCoord'); nz = N.new('ShaderNodeTexNoise'); nz.inputs['Scale'].default_value = 2600.0
     nz.inputs['Detail'].default_value = 4.0
@@ -290,7 +291,7 @@ def build_scene(pts, s, L):
     # camera
     target = (0.0, 0.0, 0.112)
     cd = bpy.data.cameras.new('Cam'); cd.lens = 96; cd.sensor_width = 36; cd.sensor_fit = 'AUTO'
-    cam = link_obj(bpy.data.objects.new('Cam', cd)); cam.location = (0.02, -1.08, 0.31); look_at(cam, target)
+    cam = link_obj(bpy.data.objects.new('Cam', cd)); cam.location = (0.02, -1.07, 0.35); look_at(cam, target)
     sc.camera = cam
 
     # lights
@@ -301,12 +302,14 @@ def build_scene(pts, s, L):
         if book_only: o.light_linking.receiver_collection = only_book
         return o
     # key: front-left, high; lights cover (~53 deg incidence) and spine evenly, far from the cover's mirror angle
-    area('Key',   (-0.30, -1.25, 0.78), (0.9, 0.9), 230, (0.0, 0.0, 0.13), (1.0, 0.975, 0.94))
+    area('Key',   (-0.30, -1.25, 0.78), (0.9, 0.9), 52, (0.0, 0.0, 0.13), (1.0, 0.975, 0.94))
     # small fill high front-right, kept ~45 deg off the mirror angle so the laminate doesn't wash out
-    area('Fill',  ( 0.95, -1.10, 0.95), (0.5, 0.5),  45, (0.0, 0.0, 0.13), (0.96, 0.98, 1.0), True)
+    area('Fill',  ( 0.95, -1.10, 0.95), (0.5, 0.5),  12, (0.0, 0.0, 0.13), (0.96, 0.98, 1.0), True)
     area('Rim',   ( 0.55,  0.60, 0.45), (0.12, 1.1), 60, (0.0, 0.0, 0.13), (1.0, 0.92, 0.80), True)
     area('RimL',  (-0.65,  0.45, 0.40), (0.12, 1.1), 30, (-0.05, 0.0, 0.13), (1.0, 0.95, 0.88), True)
     area('Top',   ( 0.00,  0.25, 0.75), (0.7, 0.25), 40, (0.0, 0.0, 0.254), (1, 1, 1), True)
+    # spine light: square to the rotated spine, grazes the cover (no effect there), book-only
+    area('Spine', (-0.84, -0.55, 0.35), (0.45, 0.8), 16, (-0.088, -0.057, 0.13), (1.0, 0.97, 0.93), True)
 
 def render(quality):
     sc = bpy.context.scene
@@ -326,10 +329,27 @@ def render(quality):
     sc.view_settings.view_transform = 'Khronos PBR Neutral' if 'Khronos PBR Neutral' in vts else 'Standard'
     sc.view_settings.look = 'None'; sc.view_settings.exposure = 0.0
     print('view transform:', sc.view_settings.view_transform)
-    sc.render.image_settings.file_format = 'PNG'
-    sc.render.filepath = P('build', f'render_{quality}.png')
+    # render unclipped scene-linear HDR; tone-mapped below so bright gold keeps its hue
+    sc.render.image_settings.file_format = 'OPEN_EXR'; sc.render.image_settings.color_depth = '32'
+    sc.render.filepath = P('build', f'render_{quality}.exr')
     bpy.ops.render.render(write_still=True)
     print('rendered', sc.render.filepath)
+    tonemap(sc.render.filepath, P('build', f'render_{quality}.png'))
+
+def tonemap(exr_path, png_path, ev=0.0, knee=0.80):
+    """Hue-preserving highlight roll-off: compress the max channel with a soft shoulder and scale
+    R,G,B by the same factor, so over-bright gold stays gold instead of drifting to lemon yellow."""
+    img = bpy.data.images.load(exr_path); w, h = img.size
+    px = np.empty(w * h * 4, np.float32); img.pixels.foreach_get(px)
+    rgb = px.reshape(h, w, 4)[::-1, :, :3] * (2.0 ** ev)
+    m = rgb.max(axis=2, keepdims=True)
+    over = np.maximum(m - knee, 0)
+    m2 = np.where(m > knee, knee + (1 - knee) * (1 - np.exp(-over / (1 - knee))), m)
+    rgb = rgb * np.where(m > 1e-6, m2 / np.maximum(m, 1e-6), 1.0)
+    rgb = np.clip(rgb, 0, 1)
+    srgb = np.where(rgb <= 0.0031308, 12.92 * rgb, 1.055 * np.power(rgb, 1 / 2.4) - 0.055)
+    Image.fromarray(np.clip(srgb * 255 + 0.5, 0, 255).astype(np.uint8)).save(png_path)
+    print('tone-mapped ->', png_path, f'(max linear {float(m.max()):.2f})')
 
 if __name__ == '__main__':
     q = sys.argv[1] if len(sys.argv) > 1 else 'preview'
