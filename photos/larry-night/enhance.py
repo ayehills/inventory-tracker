@@ -15,6 +15,8 @@ Per photo:
   5. colour      vibrance in Lab, skin hues and the face protected.
   6. sharpen     Richardson-Lucy deconvolution + unsharp mask on lightness, edge-masked, with an
                  anti-halo clamp to the local min/max.
+Photo 03 (focus missed him) also gets its head rebuilt from his sharp face in 09: see faceref.py.
+Order: python3 analyze.py && python3 faceref.py && python3 enhance.py
 Usage: python3 enhance.py [keys e.g. 01,03] [--preview]
 """
 import sys, os, json, glob, numpy as np, cv2
@@ -38,8 +40,9 @@ DEFAULT = dict(
 )
 PER = {
     # focus missed the subject (background is sharp): disc-PSF deblur on him only, radius chosen
-    # below the point where deconvolution starts ringing (>=6 px draws false lines on the face)
-    '03': dict(pre_deblur=4.75, usm_amt=0.65),
+    # below the point where deconvolution starts ringing (>=6 px draws false lines on the face);
+    # his head and hand are rebuilt from his own sharp face in 09, same pose moments apart
+    '03': dict(pre_deblur=4.75, usm_amt=0.65, face_ref=True),
 }
 
 def lin(x): return np.where(x <= 0.04045, x / 12.92, ((x + 0.055) / 1.055) ** 2.4).astype(np.float32)
@@ -93,6 +96,11 @@ def enhance(key, P, preview=False):
         out = denoise_tv_chambolle(np.clip(out, 0, 1), weight=0.004, channel_axis=-1).astype(np.float32)
         wsub = cv2.GaussianBlur(m, (0, 0), 12)[y0:y1, x0:x1, None]
         rgb[y0:y1, x0:x1] = srgb(out * wsub + Lin * (1 - wsub))
+    if P.get('face_ref'):                                                     # 0b. head rebuilt from his sharp
+        z = np.load(os.path.join(ROOT, 'build', f'faceref_{key}.npz'))       #     face in another frame (faceref.py)
+        x0, y0, x1, y1 = [int(v) for v in z['roi']]
+        al = z['alpha'].astype(np.float32)[..., None]
+        rgb[y0:y1, x0:x1] = srgb(z['face'].astype(np.float32) * al + lin(rgb[y0:y1, x0:x1]) * (1 - al))
     rgb_orig = rgb.copy()
 
     # 1. clean-up ------------------------------------------------------------------------
